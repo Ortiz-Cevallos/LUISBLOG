@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.319">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2024-01-08">
+<meta name="author" content="Luis Ortiz Cevallos">
 
-<title>PRUEBA - Post With Code</title>
+<title>LUIS ORTIZ CEVALLOS - Vectores Autoregresivos en un Panel de Datos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -66,6 +31,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../Luis.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,18 +49,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "type": "overlay",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -107,26 +75,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">PRUEBA</span>
+    <span class="navbar-title">LUIS ORTIZ CEVALLOS</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
-  </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img">
-</i> 
- <span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://github.com/Ortiz-Cevallos" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -141,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Vectores Autoregresivos en un Panel de Datos</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
@@ -154,16 +113,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta">
 
       <div>
-      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-heading">Autor/a</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Luis Ortiz Cevallos </p>
             </div>
     </div>
       
       <div>
-      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 8, 2024</p>
+        <p class="date">16 de enero de 2024</p>
       </div>
     </div>
     
@@ -181,17 +140,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This is a post with executable code.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
+<section id="generalidades" class="level1">
+<h1>Generalidades</h1>
+<section id="especificación-del-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="especificación-del-modelo">Especificación del modelo</h2>
+<p><span id="eq-1"><span class="math display">\[
+y_{t} = \mu +\sum_{j=1}^{p} A_{j}y_{t-1}+\epsilon_{t}
+\tag{1}\]</span></span></p>
+<p>Donde <span class="math inline">\(y_{t}\)</span> es un vector <span class="math inline">\((Gx1)\)</span> de variables endógenas, <span class="math inline">\(\mu\)</span> es un vector <span class="math inline">\((Gx1)\)</span> de constantes, <span class="math inline">\(A_{j}\)</span> es una matriz <span class="math inline">\((GxG)\)</span> de coeficientes y <span class="math inline">\(\epsilon\)</span> es un vector <span class="math inline">\((Gx1)\)</span> de errores.</p>
+<p><em>Supuesto</em> <span class="math inline">\(\epsilon\)</span> posee las siguientes propiedades:</p>
+<ol type="1">
+<li><p><span class="math inline">\(E(\epsilon_{t})=0\)</span></p></li>
+<li><p><span class="math inline">\(E(\epsilon_{t} \epsilon_{t}^{'})=\Sigma_{\epsilon}\)</span> la cual es una matriz <span class="math inline">\((GxG)\)</span> semidefinida positiva</p></li>
+<li><p><span class="math inline">\(E(\epsilon_{t} \epsilon_{t-s}^{'})=0\)</span> pata todo s diferente a t.</p></li>
+</ol>
+<p>El modelo dado por la ecuación <a href="#eq-1">Ecuación&nbsp;1</a> puede puede extenderse al incluirse variables exógenas: <span id="eq-2"><span class="math display">\[
+y_{t} = \mu +\sum_{j=1}^{p} A_{j}y_{t-1}+\sum_{k=1}^{s} C_{k}S_{t}+\epsilon_{t}
+\tag{2}\]</span></span></p>
+<p>Similarmente se puede hacer una facil extensión en un modelo Panel:</p>
+<p><span id="eq-3"><span class="math display">\[
+y_{i, t} = \mu_{i} +\sum_{j=1}^{p} A_{j}y_{i, t-1}+\sum_{k=1}^{s} C_{k}S_{t}+\epsilon_{i,t}
+\tag{3}\]</span></span></p>
+<p>Notar que las variables exógenas son las mismas para todos los individuos en el panel.</p>
+<p>Siendo los nuevos supuestos del modelo:</p>
+<ol type="1">
+<li><p><span class="math inline">\(E(\epsilon_{i, t})=0\)</span></p></li>
+<li><p><span class="math inline">\(E(\epsilon_{i,t} \epsilon_{i,t}^{'})=\Sigma_{\epsilon}\)</span> la cual es una matriz <span class="math inline">\((GxG)\)</span> semidefinida positiva</p></li>
+<li><p><span class="math inline">\(E(\epsilon_{i,t} \epsilon_{i,t-s}^{'})=0\)</span> pata todo s diferente a t. Notese que en este último supuesto se exige que no haya correlación serial con respecto a la dimensión tiempo, pero se permite que correlación serial con respecto a la dimensión transversal.</p></li>
+</ol>
+<p>Una nueva extensión del modelo dado por la ecuación <a href="#eq-3">Ecuación&nbsp;3</a> consiste en incluir M variables que estén correlacionadas con los errores pasados, de manera que se tendría M+K variables predeterminadas de las cuales solo K son estrictamente exógenas:</p>
+<p><span class="math display">\[
+y_{i, t} = \mu_{i} +\sum_{j=1}^{p} A_{j}y_{i, t-1}+\sum_{q=1}^{Q} B_{m}x_{t-q}+ \sum_{r=0}^{R} C_{k}S_{t-r}+\epsilon_{i,t}
+\]</span></p>
+<p>Para simplificar se supondrá que r=q=0, obteniendo:</p>
+<p><span id="eq-4"><span class="math display">\[
+y_{i, t} = \mu_{i} +\sum_{j=1}^{p} A_{j}y_{i,t-1}+B_{M}x_{t}+C_{K}S_{t}+\epsilon_{i,t}
+\tag{4}\]</span></span></p>
+<p>Por tanto un PVAR permite:</p>
+<ol type="1">
+<li><p>Incluir una estructura autorregresiva por lo que todas las variables endógenas de cada unidad entren al modelo capturando las interdependencias entre variables dentro de cada unidad;</p></li>
+<li><p>La estructura panel permite la inclusión explícita de un efecto fijo capturando todos los factores no observables que no varían en el tiempo a nivel de unidad (heterogeneidad).</p></li>
+</ol>
+<p>Una ventaja de este modelo es que los parámetros en las matrices $ A, x; y; C$ son los mismos para todas las unidades.</p>
+</section>
+<section id="interdependencia-dinámica-y-marco-general" class="level2">
+<h2 class="anchored" data-anchor-id="interdependencia-dinámica-y-marco-general">Interdependencia dinámica y marco general</h2>
+<p>Otra nueva extensión del modelo consiste en permitir una interdependencia entre las unidades incluidas en el panel. Suponga que <span class="math inline">\(Y_{t}\)</span> es la versión apilada de <span class="math inline">\(y_{i,t}\)</span> donde la dimensión transversal corre para cada elemento en la dimensión tiempo, de manera que reescribo el modelo dado por la ecuación <a href="#eq-4">Ecuación&nbsp;4</a>:</p>
+<p><span id="eq-5"><span class="math display">\[
+y_{i, t} = \mu_{i} +\sum_{j=1}^{p} A_{j,i}Y_{t-1}+\epsilon_{i,t}
+\tag{5}\]</span></span></p>
+<p>Y el nuevo modelo se caracterizaría por:</p>
+<ol type="1">
+<li><p>La estructura autorregresiva la cual permite que todas las variables endógenas dentro del modelo sean indexada a cada unidad, con ello se captura una interdependencia dinámica entre las diferentes unidades.</p></li>
+<li><p><span class="math inline">\(\epsilon_{i,t}\)</span> están generalmente correlacionadas entre unidades, capturando una estática interdependencia y</p></li>
+<li><p>El intercepto, los coeficiente y la varianza de los shocks <span class="math inline">\(\epsilon_{i,t}\)</span> podrían ser específico para cada unidad, lo que permitiría importantes heterogeneidad transversal, es decir, se pueden modelar diferentes características de la unidad.</p></li>
+</ol>
+<p>Por lo anterior, el modelo dado por la ecuación <a href="#eq-5">Ecuación&nbsp;5</a> es una versión más general dado que al imponer ciertas restricciones se puede anidar a un modelos restringido y con mayor grado de libertad.</p>
+<p>Cuando se ajusta un modelo para pequeñas unidades no se espera que exista un efecto de traspaso de una unidad hacia otra y, a la vez, se supone la homogeneidad de la pendiente de la sección transversal. Lo anterior es lo usual en el análisis micro, no así en el análisis macro.</p>
+</section>
+<section id="coeficientes-variables-en-el-tiempo" class="level2">
+<h2 class="anchored" data-anchor-id="coeficientes-variables-en-el-tiempo">Coeficientes variables en el tiempo</h2>
+<p>Otra extensión del modelo es considerar que los parámetros estimados tienen cada uno un elemento estocástico, conocidos como modelos Time Varying PVAR (TVpVAR) <span id="eq-6"><span class="math display">\[
+y_{i, t} = \mu_{i} +\sum_{j=1}^{p} A_{j, t}Y_{i,t-1}+\epsilon_{i,t}
+\tag{6}\]</span></span></p>
+</section>
+<section id="aplicación" class="level2">
+<h2 class="anchored" data-anchor-id="aplicación">Aplicación</h2>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
+
+<script>
+function graph_fold() {
+    cells = document.querySelectorAll(".cell:has(img)");
+    cells.forEach(cell => {
+      imgs = cell.querySelectorAll(".cell-output-display:has(p img)");
+      imgs.forEach(img => {
+        det = document.createElement("details");
+        sum = document.createElement("summary");
+        det.appendChild(sum);
+        det.children[0].innerText = "Graph";
+        img_clone = img.cloneNode(true);
+        det.appendChild(img_clone);
+        cell.replaceChild(det, img);
+      });
+    });
+}
+
+window.onload = graph_fold();  
+</script>
+
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -246,12 +287,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
